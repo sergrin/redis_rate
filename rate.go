@@ -41,6 +41,8 @@ func fmtDur(d time.Duration) string {
 		return "m"
 	case time.Hour:
 		return "h"
+	case 24*time.Hour:
+		return "d"
 	}
 	return d.String()
 }
@@ -65,6 +67,14 @@ func PerHour(rate int) Limit {
 	return Limit{
 		Rate:   rate,
 		Period: time.Hour,
+		Burst:  rate,
+	}
+}
+
+func PerDay(rate int) Limit {
+	return Limit{
+		Rate:   rate,
+		Period: 24 * time.Hour,
 		Burst:  rate,
 	}
 }
